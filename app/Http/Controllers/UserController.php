@@ -25,12 +25,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $user = User::all();
-        return $user;
+        return response()->json(User::all());
     }
 
     /**
-     * Get Users List.
+     * Saves User Details.
      *
      * @return void
      */
@@ -41,15 +40,38 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->save();
         if ($user->save()) {
-            $response = response()->json(
-                [
-                    'response' => [
-                        'created' => true,
-                        'userId' => $user->id
-                    ]
-                ], 201
-            );
+            $response = response()->json($user);
         }
         return $response;
+    }
+
+    /**
+     * Updates User Details.
+     *
+     * @return void
+     */
+    public function update(Request $request, $strUserId)
+    {
+        $user = User::find($strUserId);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+        if ($user->save()) {
+            $response = response()->json($user);
+        }
+        return $response;
+    }
+
+    /**
+     * Delete User
+     *
+     * @return void
+     */
+    public function delete(Request $request, $strUserId)
+    {
+        $user = User::find($strUserId);
+        $user->forceDelete();
+        $response['success'] = true;
+        return response($response, 200);
     }
 }
