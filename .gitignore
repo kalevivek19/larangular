@@ -3,3 +3,6 @@
 Homestead.json
 Homestead.yaml
 .env
+/nbproject/private/
+/nbproject/project.properties
+/nbproject/project.xml

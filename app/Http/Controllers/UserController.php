@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -36,8 +37,8 @@ class UserController extends Controller
     public function save(Request $request)
     {
         $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
+        $user->name = Str::random(5); //$request->name;
+        $user->email = Str::random(5) . '@test.com'; //$request->email;
         $user->save();
         if ($user->save()) {
             $response = response()->json($user);
